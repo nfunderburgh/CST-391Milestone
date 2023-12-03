@@ -1,0 +1,13 @@
+<h1 align="center"> Delete Prayer Request</h1>
+<div class="form-container" *ngIf="!wasSubmitted">
+    <form (ngSubmit)="onSubmit()" #createForm="ngForm">
+        <div class="form-group">
+            <label for="prayerId">Prayer Id</label> <input id="prayerId" type="text" class="form-control" aria-describedby="prayerId"
+                placeholder="Enter the Id of the Prayer to be deleted" required [(ngModel)]="prayer.prayerId" name="prayerId">
+        </div>
+
+        <button type="submit" class=btn btn-primary>Submit</button>
+    </form>
+</div>
+<div *ngIf="wasSubmitted">Prayer was deleted successfully.</div>
+

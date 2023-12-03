@@ -1,0 +1,31 @@
+<h1 align="center"> Edit Prayer Request</h1>
+<div class="form-container" *ngIf="!wasSubmitted">
+  <form (ngSubmit)="onSubmit()" #createForm="ngForm">
+      <div class="form-group">
+        <label for="prayerId">Prayer Id</label> <input id="prayerId" type="text" class="form-control" aria-describedby="helpPrayerId"
+            placeholder="Enter the Id of the Prayer to be updated" required [(ngModel)]="prayer.prayerId" name="prayerId">
+      </div>
+      <div class="form-group">
+          <label for="name">Name</label> <input id="name" type="text" class="form-control"
+              aria-describedby="helpName" placeholder="Enter your Name" required
+              [(ngModel)]="prayer.name" name="name">
+      </div>
+      <div class="form-group">
+        <label for="anonymous">Anonymous</label>
+        <select id="anonymous" class="form-control" aria-describedby="helpAnonymous" required
+            [(ngModel)]="prayer.anonymous" name="anonymous">
+            <option [ngValue]="true">True</option>
+            <option [ngValue]="false">False</option>
+        </select>
+      </div>
+      <div class="form-group">
+          <label for="prayerRequest">Prayer Request</label>
+          <textarea id="prayerRequest" rows="3" class="form-control" aria-describedby="helpPrayerRequest"
+              placeholder="Enter the description of the Prayer" required [(ngModel)]="prayer.prayerRequest"
+              name="description"></textarea>
+      </div>
+
+      <button type="submit" class=btn btn-primary>Submit</button>
+  </form>
+</div>
+<div *ngIf="wasSubmitted">Prayer was updated successfully.</div>

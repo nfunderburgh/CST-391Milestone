@@ -23,9 +23,4 @@ export class ListPrayersComponent {
       }
     });
   }
-
-  onSelectPrayer(prayer: Prayer) {
-    this.selectedPrayer = prayer;
-    console.log('selected prayer', prayer);
-  }
 }

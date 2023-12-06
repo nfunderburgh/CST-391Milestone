@@ -2,17 +2,9 @@
   <h1 align="center"> Prayer Requests</h1>
   <table>
     <tr *ngFor="let prayer of prayers">
-        <td width="50px" align="left">
-            <p href="#" data-toggle="collapse" data-target="#collapsePrayers" aria-expanded="false"
-                aria-controls="collapsePrayers"><i class="fa fa-list"></i>{{ prayer.name }}</p>
-        </td>
+        <td width="50px" align="center">{{ prayer.prayerId }} </td>
+        <td width="50px" align="left">{{ prayer.name }} </td>
         <td width="50px" align="left"> {{ prayer.prayerRequest }}</td>
-        <td width="50px" align="left">
-            <a [routerLink]="['/edit', prayer!.prayerId]"><i class="fa fa-edit"></i>Edit</a>
-        </td>
-        <td width="50px" align="left">
-            <a [routerLink]="['/delete', prayer!.prayerId]"><i class="fa fa-trash"></i>Delete</a>
-        </td>
     </tr>
 </table>
 </div>

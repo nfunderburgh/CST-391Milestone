@@ -21,8 +21,4 @@ export class AppComponent {
   public displayPrayerList() {
     this.router.navigate(['list-prayers'], { queryParams: { data: new Date() } });
   }
-
-  public deletePrayer() {
-    this.router.navigate(['delete-prayer'], { queryParams: { data: new Date() } });
-  }
 }

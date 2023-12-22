@@ -1,27 +1,27 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import SearchAlbum from "./SearchAlbum.js";
+import SearchPrayer from "./SearchPrayer.js";
 import NavBar from "./NavBar.js";
-import NewAlbum from "./NewAlbum.js";
-import OneAlbum from "./OneAlbum.js";
+import NewPrayer from "./NewPrayer.js";
+import OnePrayer from "./OnePrayer.js";
 import './App.css';
 import dataSource from "./dataSource.js";
 
 
 const App = (props) => {
     const [searchPhrase, setSearchPhrase] = useState('');
-    const [albumList, setAlbumList] = useState([]);
-    const [currentlySelectedAlbumId, setCurrentlySelectedAlbumId] = useState(0);
+    const [prayerList, setPrayerList] = useState([]);
+    const [currentlySelectedPrayerId, setCurrentlySelectedPrayerId] = useState(0);
 
     let refresh = false;
 
-    const loadAlbums = async () => {
-        const response = await dataSource.get('/albums');
-        setAlbumList(response.data);
+    const loadPrayers = async () => {
+        const response = await dataSource.get('/prayers');
+        setPrayerList(response.data);
     }
 
     useEffect(() => {
-        loadAlbums();
+        loadPrayers();
     }, [refresh]);
 
     const updateSearchResults = (phrase) => {
@@ -29,22 +29,22 @@ const App = (props) => {
         setSearchPhrase(phrase);
     };
 
-    const updateSingleAlbum = (id, navigate) => {
-        console.log('Update Single album = ', id);
-        console.log('Update Single album = ', navigate);
+    const updateSinglePrayer = (id, navigate) => {
+        console.log('Update Single prayer = ', id);
+        console.log('Update Single prayer = ', navigate);
         var indexNumber = 0;
-        for (var i = 0; i < albumList.length; ++i) {
-            if (albumList[i].id === id) indexNumber = i;
+        for (var i = 0; i < prayerList.length; ++i) {
+            if (prayerList[i].id === id) indexNumber = i;
         }
-        setCurrentlySelectedAlbumId(indexNumber);
+        setCurrentlySelectedPrayerId(indexNumber);
         console.log('update path', '/show/' + indexNumber);
         navigate('/show/' + indexNumber);
     };
 
-    console.log('albumList', albumList);
-    const renderedList = albumList.filter((album) => {
+    console.log('prayerList', prayerList);
+    const renderedList = prayerList.filter((prayer) => {
         if (
-            album.description.toLowerCase().includes(searchPhrase.toLowerCase()) || searchPhrase === ''
+            prayer.name.toLowerCase().includes(searchPhrase.toLowerCase()) || searchPhrase === ''
         ) {
             return true;
         }
@@ -60,18 +60,18 @@ const App = (props) => {
                     exact
                     path='/'
                     element={
-                        <SearchAlbum
+                        <SearchPrayer
                             updateSearchResults={updateSearchResults}
-                            albumList={renderedList}
-                            updateSingleAlbum={updateSingleAlbum}
+                            prayerList={renderedList}
+                            updateSinglePrayer={updateSinglePrayer}
                         />
                     }
                 />
-                <Route exact path='/new' element={<NewAlbum />} />
+                <Route exact path='/new' element={<NewPrayer />} />
                 <Route
                     exact
-                    path='/show/:albumId'
-                    element={<OneAlbum album={albumList[currentlySelectedAlbumId]} />}
+                    path='/show/:prayerId'
+                    element={<OnePrayer prayer={prayerList[currentlySelectedPrayerId]} />}
                 />
             </Routes>
         </BrowserRouter>

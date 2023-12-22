@@ -4,7 +4,7 @@ const NavBar = () => {
     return (
         <nav className='navbar navbar-expand-lg navbar-light bg-light'>
             <span className='navbar-brand' href='#'>
-                My Music
+                My Prayers
             </span>
             <button
                 className='navbar-toggler'

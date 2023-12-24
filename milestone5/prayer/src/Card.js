@@ -24,7 +24,6 @@ const Card = (props) => {
                 <p className='card-text'>
                     {props.prayerRequest}
                 </p>
-                <button className="btn btn-primary" onClick={() => handleButtonClick(props.prayerId, '/show/')}>{props.buttonText}</button>
                 <button className="btn btn-primary" onClick={() => handleButtonClick(props.prayerId, '/edit/')}>Edit</button>
                 <button className="btn btn-primary" onClick={() => handleDeleteClick(props.prayerId)}>Delete</button>
             </div>

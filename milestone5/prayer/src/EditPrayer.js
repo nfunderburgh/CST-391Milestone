@@ -26,7 +26,12 @@ const EditPrayer = (props) => {
     }
     const updateAnonymous = (event) => {
         let isAnonymous = false;
-        isAnonymous = document.getElementById('prayerAnonymous').checked;
+        if (document.getElementById('prayerAnonymous').checked){
+            isAnonymous = true;
+        }
+        else{
+            isAnonymous = false;
+        }
         console.log(isAnonymous);
         setAnonymous(isAnonymous);
     }

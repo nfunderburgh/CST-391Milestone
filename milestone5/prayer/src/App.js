@@ -2,10 +2,11 @@ import React, { useState, useEffect } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import SearchPrayer from "./SearchPrayer.js";
 import NavBar from "./NavBar.js";
-import NewPrayer from "./NewPrayer.js";
+import EditPrayer from "./EditPrayer.js";
 import OnePrayer from "./OnePrayer.js";
 import './App.css';
 import dataSource from "./dataSource.js";
+import PrayerList from "./PrayerList.js";
 
 
 const App = (props) => {
@@ -29,16 +30,17 @@ const App = (props) => {
         setSearchPhrase(phrase);
     };
 
-    const updateSinglePrayer = (id, navigate) => {
-        console.log('Update Single prayer = ', id);
+    const updateSinglePrayer = (prayerId, navigate, uri) => {
+        console.log('Update Single prayer = ', prayerId);
         console.log('Update Single prayer = ', navigate);
         var indexNumber = 0;
         for (var i = 0; i < prayerList.length; ++i) {
-            if (prayerList[i].id === id) indexNumber = i;
+            if (prayerList[i].prayerId === prayerId) indexNumber = i;
         }
         setCurrentlySelectedPrayerId(indexNumber);
-        console.log('update path', '/show/' + indexNumber);
-        navigate('/show/' + indexNumber);
+        let path = uri + prayerId;
+        console.log('path =' + path);
+        navigate(path);
     };
 
     console.log('prayerList', prayerList);
@@ -51,6 +53,12 @@ const App = (props) => {
         return false;
     });
     console.log('renderedList', renderedList)
+
+    const onEditPrayer = (navigate) => {
+        loadPrayers();
+        navigate("/");
+    }
+
 
     return (
         <BrowserRouter>
@@ -67,11 +75,21 @@ const App = (props) => {
                         />
                     }
                 />
-                <Route exact path='/new' element={<NewPrayer />} />
+                <Route exact path='/new' element={<EditPrayer onEditPrayer={onEditPrayer} />} />
+                <Route exact path='/edit/:prayerId' element={<EditPrayer onEditPrayer={onEditPrayer} prayer={prayerList[currentlySelectedPrayerId]}/>} />
                 <Route
                     exact
                     path='/show/:prayerId'
                     element={<OnePrayer prayer={prayerList[currentlySelectedPrayerId]} />}
+                />
+                 <Route
+                    exact
+                    path='/'
+                    element={
+                        <PrayerList
+                            prayerList={prayerList}
+                            setPrayerList={setPrayerList}
+                            onClick={updateSinglePrayer} /> }
                 />
             </Routes>
         </BrowserRouter>
